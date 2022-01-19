@@ -1,20 +1,16 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\Student;
+use App\Models\Course;
+
 use Illuminate\Http\Request;
 
-class StudentController extends Controller
+class CourseController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-          $studentsdata=Student::all();
-         return response()->json($studentsdata, 200);
+        $coursesinfo=Course::all();
+        return response()->json( $coursesinfo, 200);
     }
 
     /**
@@ -35,8 +31,8 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
-        Student::create($request->all());
-        return response()->json("student has been added suess", 200);
+        Course::create($request->all());
+        return response()->json("course has been added suess", 200);
 
     }
 
@@ -48,8 +44,8 @@ class StudentController extends Controller
      */
     public function show($id)
     {
-       $studnetinfo= Student::find($id);
-       return response()->json( $studnetinfo, 200);
+       $courseinfo= Course::find($id);
+       return response()->json( $courseinfo, 200);
 
     }
 
@@ -61,8 +57,8 @@ class StudentController extends Controller
      */
     public function edit($id)
     {
-        $studnetinfo= Student::find($id);
-        return response()->json( $studnetinfo, 200);
+        $courseinfo= Course::find($id);
+        return response()->json( $courseinfo, 200);
     }
 
     /**
@@ -74,9 +70,9 @@ class StudentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $studnetinfo= Student::find($id);
-        $updatedstudent= $studnetinfo->update($request->all());
-        return response()->json( $studnetinfo,200);
+        $courseinfo= Course::find($id);
+       $teacherinfo->update($request->all());
+        return response()->json( $courseinfo,200);
     }
 
     /**
@@ -87,8 +83,8 @@ class StudentController extends Controller
      */
     public function destroy($id)
     {
-        $studnetinfo= Student::find($id);
-        $updatedstudent= $studnetinfo->delete();
+        $courseinfo= Course::find($id);
+        $updatedstudent= $courseinfo->delete();
         return response()->json( "deleted sucessfully", 200);
     }
 }
