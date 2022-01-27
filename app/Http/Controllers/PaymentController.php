@@ -1,10 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\Student;
+use App\Models\Payement;
+
 use Illuminate\Http\Request;
 
-class StudentController extends Controller
+class PaymentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,8 +14,8 @@ class StudentController extends Controller
      */
     public function index()
     {
-          $studentsdata=Student::all();
-         return response()->json($studentsdata, 200);
+        $payemnts=Payement::all();
+         return response()->json($payemnts, 200);
     }
 
     /**
@@ -22,9 +23,9 @@ class StudentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
+    public function create()
     {
-
+        //
     }
 
     /**
@@ -35,9 +36,8 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
-      $student=  Student::create($request->all());
-        return response()->json( $student, 200);
-
+      $payement=Payement::create($request->all());
+        return response()->json( $payement, 200);
     }
 
     /**
@@ -48,8 +48,8 @@ class StudentController extends Controller
      */
     public function show($id)
     {
-       $studnetinfo= Student::find($id);
-       return response()->json( $studnetinfo, 200);
+        $payement=Payement::find($id);
+        return response()->json($payement, 200);
 
     }
 
@@ -61,8 +61,7 @@ class StudentController extends Controller
      */
     public function edit($id)
     {
-        $studnetinfo= Student::find($id);
-        return response()->json( $studnetinfo, 200);
+        //
     }
 
     /**
@@ -74,9 +73,10 @@ class StudentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $studnetinfo= Student::find($id);
-        $updatedstudent= $studnetinfo->update($request->all());
-        return response()->json( $studnetinfo,200);
+        $payement=Payement::find($id);
+        $payement->update($request);
+        return response()->json($payement, 200);
+
     }
 
     /**
@@ -87,8 +87,9 @@ class StudentController extends Controller
      */
     public function destroy($id)
     {
-        $studnetinfo= Student::find($id);
-        $updatedstudent= $studnetinfo->delete();
-        return response()->json( "deleted sucessfully", 200);
+        $payement=Payement::find($id);
+        $payement->delete();
+        return response()->json("deleted successfully", 200);
+
     }
 }

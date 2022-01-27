@@ -42,7 +42,24 @@ Route::get('courses/{courseid}', 'App\Http\Controllers\CourseController@show');
 Route::post('courses','App\Http\Controllers\CourseController@store');
 Route::put('courses/{courseid}','App\Http\Controllers\CourseController@update');
 Route::delete('courses/{courseid}', 'App\Http\Controllers\CourseController@destroy');
+Route::get('getstudentclass','App\Http\Controllers\CourseController@getstudentclass');
 
+//absent
+Route::post('absent','App\Http\Controllers\AbsentController@store');
 
+///payment routes
+Route::get('payemnts','App\Http\Controllers\PaymentController@index');
+Route::get('payemnts/{payementid}', 'App\Http\Controllers\PaymentController@show');
+Route::post('payemnts','App\Http\Controllers\PaymentController@store');
+Route::put('payemnts/{payemntid}','App\Http\Controllers\PaymentController@update');
+Route::delete('payemnts/{payemntid}', 'App\Http\Controllers\PaymentController@destroy');
+
+//dashboard
+Route::get('getstudentsnumbers','App\Http\Controllers\DashboardController@getstudentsnumbers');
+Route::get('getabsentstudents','App\Http\Controllers\DashboardController@getabsentstudents');
+Route::get('getpresencestudents','App\Http\Controllers\DashboardController@getpresencestudents');
+// student_payemnt
+Route::get('getstudents','App\Http\Controllers\StudentPayementController@getstudents');
+Route::post('storepayement','App\Http\Controllers\StudentPayementController@storepayement');
 
 });

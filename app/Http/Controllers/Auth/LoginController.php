@@ -54,7 +54,6 @@ class LoginController extends Controller
         // $var = Str::random(32);
         return response()->json([
             'data' => $user->toArray(),
-
         ]);
     }
 

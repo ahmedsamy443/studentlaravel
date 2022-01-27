@@ -1,10 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\Student;
+use App\Models\Attendance;
 use Illuminate\Http\Request;
-
-class StudentController extends Controller
+use Carbon\Carbon;
+class AbsentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,8 +13,7 @@ class StudentController extends Controller
      */
     public function index()
     {
-          $studentsdata=Student::all();
-         return response()->json($studentsdata, 200);
+        //
     }
 
     /**
@@ -22,9 +21,9 @@ class StudentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
+    public function create()
     {
-
+        //
     }
 
     /**
@@ -33,10 +32,29 @@ class StudentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $req)
     {
-      $student=  Student::create($request->all());
-        return response()->json( $student, 200);
+        // print_r($request->all());
+        $dt = Carbon::now();
+          if(Attendance::where("Attendance_date",$dt->toDateString())
+          ->where("Student_id",$req->Student_id)
+          ->where("class_id",$req->class_id)
+          ->first())
+          {
+
+              $studentabsence=Attendance::where("Student_id",$req->student_id)->first();
+              $studentabsence->update($req->all());
+              return response()->json("updated successfully", 200);
+            }
+        $student=Attendance::create(
+            [
+                "Attendance_date"=>$dt->toDateString(),
+                "Student_id"=>$req->Student_id,
+                "class_id"=>$req->class_id,
+                "absence_status"=>$req->absence_status
+
+            ]);
+            return response()->json( "regesterd successfully", 200);
 
     }
 
@@ -48,9 +66,7 @@ class StudentController extends Controller
      */
     public function show($id)
     {
-       $studnetinfo= Student::find($id);
-       return response()->json( $studnetinfo, 200);
-
+        //
     }
 
     /**
@@ -61,8 +77,7 @@ class StudentController extends Controller
      */
     public function edit($id)
     {
-        $studnetinfo= Student::find($id);
-        return response()->json( $studnetinfo, 200);
+        //
     }
 
     /**
@@ -74,9 +89,7 @@ class StudentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $studnetinfo= Student::find($id);
-        $updatedstudent= $studnetinfo->update($request->all());
-        return response()->json( $studnetinfo,200);
+        //
     }
 
     /**
@@ -87,8 +100,6 @@ class StudentController extends Controller
      */
     public function destroy($id)
     {
-        $studnetinfo= Student::find($id);
-        $updatedstudent= $studnetinfo->delete();
-        return response()->json( "deleted sucessfully", 200);
+        //
     }
 }

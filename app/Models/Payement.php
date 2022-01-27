@@ -5,18 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Student extends Model
+class Payement extends Model
 {
-
-
-    public $timestamps = false;
     use HasFactory;
+    public $timestamps = false;
     protected $fillable = [
-        'name',
+        'payement_name',
+       "amount",
+       "class_id"
     ];
-
-    public function course()
-    {
-        return $this->belongsTo(Course::class,"course_id");
-    }
 }

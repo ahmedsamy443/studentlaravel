@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddApiTokenToUsersTable extends Migration
+class AddStudentNameToStudentpayementesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AddApiTokenToUsersTable extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->string('api_token')->nullable();
+        Schema::table('studentpayementes', function (Blueprint $table) {
+            $table->string("student_name");
         });
     }
 
@@ -25,7 +25,8 @@ class AddApiTokenToUsersTable extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('api_token');        });
+        Schema::table('studentpayementes', function (Blueprint $table) {
+            $table->string("student_name");
+        });
     }
 }

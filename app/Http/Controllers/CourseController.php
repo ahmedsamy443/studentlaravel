@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\Course;
 
 use Illuminate\Http\Request;
+use App\Models\Student;
 
 class CourseController extends Controller
 {
@@ -11,6 +12,13 @@ class CourseController extends Controller
     {
         $coursesinfo=Course::all();
         return response()->json( $coursesinfo, 200);
+    }
+
+    public function getstudentclass( Request $request)
+    {
+       $students=Student::where("course_id",$request->id)->get();
+    //    $students= Course::with(["students"])->get();
+       return response()->json($students, 200);
     }
 
     /**
@@ -31,8 +39,8 @@ class CourseController extends Controller
      */
     public function store(Request $request)
     {
-        Course::create($request->all());
-        return response()->json("course has been added suess", 200);
+       $course= Course::create($request->all());
+        return response()->json($course, 200);
 
     }
 
@@ -71,7 +79,7 @@ class CourseController extends Controller
     public function update(Request $request, $id)
     {
         $courseinfo= Course::find($id);
-       $teacherinfo->update($request->all());
+       $courseinfo->update($request->all());
         return response()->json( $courseinfo,200);
     }
 
