@@ -46,6 +46,7 @@ Route::get('getstudentclass','App\Http\Controllers\CourseController@getstudentcl
 
 //absent
 Route::post('absent','App\Http\Controllers\AbsentController@store');
+Route::post('getabsentstuents','App\Http\Controllers\AbsentController@getabsentstuents');
 
 ///payment routes
 Route::get('payemnts','App\Http\Controllers\PaymentController@index');
@@ -61,5 +62,10 @@ Route::get('getpresencestudents','App\Http\Controllers\DashboardController@getpr
 // student_payemnt
 Route::get('getstudents','App\Http\Controllers\StudentPayementController@getstudents');
 Route::post('storepayement','App\Http\Controllers\StudentPayementController@storepayement');
+Route::post('getsearchsedstudent','App\Http\Controllers\StudentPayementController@getsearchsedstudent');
+Route::get('getstudentdetails','App\Http\Controllers\StudentPayementController@getstudentdetails');
+//payement_reports
+Route::get('getallstudents','App\Http\Controllers\Payement_ReportsController@getallstudents');
+Route::get('getstudentdetails','App\Http\Controllers\Payement_ReportsController@getstudentdetails');
 
 });

@@ -9,14 +9,18 @@ class Studentpayement extends Model
 {
     use HasFactory;
 
-    protected $table = 'studentpayementes';
+    protected $table = 'student_payements';
     public $timestamps = false;
 
     protected $fillable = [
         'student_id',
        "class_id",
        "payement_id",
-       	"student_name",
+           "payement_date"
     ];
 
+  public function payements()
+    {
+        return $this->belongsTo(Payement::class,"payement_id");
+    }
 }

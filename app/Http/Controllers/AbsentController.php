@@ -34,17 +34,20 @@ class AbsentController extends Controller
      */
     public function store(Request $req)
     {
-        // print_r($request->all());
         $dt = Carbon::now();
           if(Attendance::where("Attendance_date",$dt->toDateString())
           ->where("Student_id",$req->Student_id)
           ->where("class_id",$req->class_id)
           ->first())
           {
-
-              $studentabsence=Attendance::where("Student_id",$req->student_id)->first();
-              $studentabsence->update($req->all());
-              return response()->json("updated successfully", 200);
+              echo"asda";
+            // $studentabsence=Attendance::where("Student_id",$req->student_id)->first("absence_status");
+            // echo  $studentabsence;
+            // $studentabsence-> $studentabsence=$req->absence_status;
+            //   $studentabsence=Attendance::where("Student_id",$req->student_id)
+            //   ->update(["absence_status"=>$req->absence_status]);
+            //   $studentinfo=Attendance::where("Student_id",$req->student_id)->get();
+            //   return response()->json( "updated", 200);
             }
         $student=Attendance::create(
             [
@@ -55,6 +58,10 @@ class AbsentController extends Controller
 
             ]);
             return response()->json( "regesterd successfully", 200);
+
+    }
+    public function getabsentstuents()
+    {
 
     }
 

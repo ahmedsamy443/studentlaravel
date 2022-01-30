@@ -3,8 +3,9 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+ use Carbon\Carbon;
 
-class CreateStudentpayementesTable extends Migration
+class CreateStudentPayements extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +14,15 @@ class CreateStudentpayementesTable extends Migration
      */
     public function up()
     {
-        Schema::create('studentpayementes', function (Blueprint $table) {
+
+        Schema::create('student_payements', function (Blueprint $table) {
+            $date = Carbon::now();
+
             $table->id();
             $table->string("student_id");
             $table->string("class_id");
             $table->string("payement_id");
-
-
+            $table->date("payement_date")->default($date->toDateString());
         });
     }
 
@@ -30,6 +33,6 @@ class CreateStudentpayementesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('studentpayementes');
+        Schema::dropIfExists('student_payements');
     }
 }
