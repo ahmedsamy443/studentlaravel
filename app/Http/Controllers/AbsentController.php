@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 use App\Models\Attendance;
 use Illuminate\Http\Request;
+use App\Http\Resources\AbsentStudents;
+
 use Carbon\Carbon;
 class AbsentController extends Controller
 {
@@ -35,36 +37,60 @@ class AbsentController extends Controller
     public function store(Request $req)
     {
         $dt = Carbon::now();
-          if(Attendance::where("Attendance_date",$dt->toDateString())
-          ->where("Student_id",$req->Student_id)
-          ->where("class_id",$req->class_id)
-          ->first())
+        $student_attendeance=Attendance::where("Attendance_date",$dt->toDateString())
+        ->where("Student_id",$req->Student_id)
+        ->where("class_id",$req->class_id)
+        ->first();
+          if($student_attendeance)
           {
-              echo"asda";
-            // $studentabsence=Attendance::where("Student_id",$req->student_id)->first("absence_status");
-            // echo  $studentabsence;
-            // $studentabsence-> $studentabsence=$req->absence_status;
-            //   $studentabsence=Attendance::where("Student_id",$req->student_id)
-            //   ->update(["absence_status"=>$req->absence_status]);
-            //   $studentinfo=Attendance::where("Student_id",$req->student_id)->get();
-            //   return response()->json( "updated", 200);
+            $student_attendeance->update(["absence_status"=>$req->absence_status]);
+               return response()->json( "updated", 200);
             }
-        $student=Attendance::create(
-            [
-                "Attendance_date"=>$dt->toDateString(),
-                "Student_id"=>$req->Student_id,
-                "class_id"=>$req->class_id,
-                "absence_status"=>$req->absence_status
+            else{
+                $student=Attendance::create(
+                    [
+                        "Attendance_date"=>$dt->toDateString(),
+                        "Student_id"=>$req->Student_id,
+                        "class_id"=>$req->class_id,
+                        "absence_status"=>$req->absence_status
 
-            ]);
-            return response()->json( "regesterd successfully", 200);
+                    ]);
+                    return response()->json( "regesterd successfully", 200);
+
+            }
+
 
     }
     public function getabsentstuents()
     {
-
+      $absent_students= Attendance::with(["student","course"])->where("absence_status",0)->get();
+       return response()->json(AbsentStudents::collection($absent_students), 200);
     }
+     public function getabsentstuentsbyclass(Request $req)
+     {
+        $absent_students= Attendance::with(["student","course"])->where("absence_status",0)
+        ->where("class_id",$req->id)
+        ->get();
+        return response()->json(AbsentStudents::collection($absent_students), 200);
+     }
+     public function getabbentstudentsbydate(Request $req)
+     {
+         if($req->has('class_id')&&!empty($req->input('class_id')))
+         {
+            $absent_students= Attendance::with(["student","course"])->where("absence_status",0)
+            ->where("class_id",$req->class_id)
+            ->whereBetween("Attendance_date",[$req->start_date,$req->end_date])
+            ->get();
+            return response()->json(AbsentStudents::collection($absent_students), 200);
 
+         }
+         $absent_students= Attendance::with(["student","course"])->where("absence_status",0)
+
+         ->whereBetween("Attendance_date",[$req->start_date,$req->end_date])
+         ->get();
+         return response()->json(AbsentStudents::collection($absent_students), 200);
+
+     }
     /**
      * Display the specified resource.
      *

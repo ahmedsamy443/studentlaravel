@@ -15,4 +15,12 @@ class Attendance extends Model
         'class_id',
         "absence_status"
     ];
+    public function student()
+    {
+        return $this->belongsTo(Student::class,"Student_id");
+    }
+    public function course()
+    {
+        return $this->belongsTo(Course::class,"class_id");
+    }
 }

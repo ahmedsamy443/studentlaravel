@@ -46,7 +46,9 @@ Route::get('getstudentclass','App\Http\Controllers\CourseController@getstudentcl
 
 //absent
 Route::post('absent','App\Http\Controllers\AbsentController@store');
-Route::post('getabsentstuents','App\Http\Controllers\AbsentController@getabsentstuents');
+Route::get('getabsentstuents','App\Http\Controllers\AbsentController@getabsentstuents');
+Route::get('getabsentstuentsbyclass','App\Http\Controllers\AbsentController@getabsentstuentsbyclass');
+Route::get('getabbentstudentsbydate','App\Http\Controllers\AbsentController@getabbentstudentsbydate');
 
 ///payment routes
 Route::get('payemnts','App\Http\Controllers\PaymentController@index');
